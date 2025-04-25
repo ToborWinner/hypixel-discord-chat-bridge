@@ -3,6 +3,7 @@ const { replaceVariables } = require("../../contracts/helperFunctions.js");
 const { Embed } = require("../../contracts/embedHandler.js");
 const config = require("../../Configuration.js");
 const fs = require("fs");
+const path = require("path");
 
 function formatOptions(name, required) {
   return replaceVariables(required ? ` ({${name}})` : ` [{${name}}]`, { username: "u" })
@@ -19,7 +20,7 @@ function getCommands(commands) {
     .join("");
 
   const minecraftCommands = fs
-    .readdirSync("./src/minecraft/commands")
+    .readdirSync(path.join(__dirname, "../../minecraft/commands"))
     .filter((file) => file.endsWith(".js"))
     .map((file) => {
       const command = new (require(`../../minecraft/commands/${file}`))();

@@ -3,6 +3,7 @@ const { Embed } = require("../../contracts/embedHandler.js");
 const { getCommands } = require("./infoCommand.js");
 const config = require("../../Configuration.js");
 const fs = require("fs");
+const path = require("path");
 
 module.exports = {
   name: "help",
@@ -46,7 +47,7 @@ module.exports = {
         await interaction.followUp({ embeds: [helpMenu] });
       } else {
         const minecraftCommand = fs
-          .readdirSync("./src/minecraft/commands")
+          .readdirSync(path.join(__dirname, "../../minecraft/commands"))
           .filter((file) => file.endsWith(".js"))
           .map((file) => new (require(`../../minecraft/commands/${file}`))())
           .find((command) => command.name === commandName || command.aliases.includes(commandName));

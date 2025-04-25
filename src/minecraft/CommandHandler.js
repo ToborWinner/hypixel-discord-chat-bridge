@@ -2,6 +2,7 @@ const { Collection } = require("discord.js");
 const config = require("../Configuration.js");
 const axios = require("axios");
 const fs = require("fs");
+const path = require("path");
 
 class CommandHandler {
   /** @param {import("minecraft-protocol").Client} minecraft */
@@ -11,7 +12,7 @@ class CommandHandler {
     this.prefix = config.minecraft.bot.prefix;
     this.commands = new Collection();
 
-    const commandFiles = fs.readdirSync("./src/minecraft/commands").filter((file) => file.endsWith(".js"));
+    const commandFiles = fs.readdirSync(path.join(__dirname, "commands")).filter((file) => file.endsWith(".js"));
     for (const file of commandFiles) {
       const command = new (require(`./commands/${file}`))(minecraft);
 

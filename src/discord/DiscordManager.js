@@ -7,6 +7,7 @@ const StateHandler = require("./handlers/StateHandler.js");
 const CommandHandler = require("./CommandHandler.js");
 const config = require("../Configuration.js");
 const fs = require("fs");
+const path = require("path");
 const { ErrorEmbed } = require("../contracts/embedHandler.js");
 
 class DiscordManager extends CommunicationBridge {
@@ -35,7 +36,7 @@ class DiscordManager extends CommunicationBridge {
     });
 
     client.commands = new Collection();
-    const commandFiles = fs.readdirSync("src/discord/commands").filter((file) => file.endsWith(".js"));
+    const commandFiles = fs.readdirSync(path.join(__dirname, "commands")).filter((file) => file.endsWith(".js"));
 
     for (const file of commandFiles) {
       const command = require(`./commands/${file}`);
@@ -46,7 +47,7 @@ class DiscordManager extends CommunicationBridge {
       client.commands.set(command.name, command);
     }
 
-    const eventFiles = fs.readdirSync("src/discord/events").filter((file) => file.endsWith(".js"));
+    const eventFiles = fs.readdirSync(path.join(__dirname, "events")).filter((file) => file.endsWith(".js"));
     for (const file of eventFiles) {
       const event = require(`./events/${file}`);
       event.once ? client.once(event.name, (...args) => event.execute(...args)) : client.on(event.name, (...args) => event.execute(...args));

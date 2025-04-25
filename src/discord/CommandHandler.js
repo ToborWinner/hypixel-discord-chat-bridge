@@ -3,13 +3,14 @@ const { Routes } = require("discord-api-types/v9");
 const config = require("../Configuration.js");
 const { REST } = require("@discordjs/rest");
 const fs = require("fs");
+const path = require("path");
 
 class CommandHandler {
   constructor(discord) {
     this.discord = discord;
 
     const commands = [];
-    const commandFiles = fs.readdirSync("src/discord/commands").filter((file) => file.endsWith(".js"));
+    const commandFiles = fs.readdirSync(path.join(__dirname, "commands")).filter((file) => file.endsWith(".js"));
 
     for (const file of commandFiles) {
       const command = require(`./commands/${file}`);
