@@ -125,5 +125,9 @@
     "enabled": false,
     "autoUpdaterInterval": 5,
     "channels": [{ "id": "CHANNEL_ID", "name": "Guild Level: {guildLevel}" }]
+  },
+  "accept": {
+    "allowedRoles": ["SOME_ROLE_ID"],
+    "suffix": "somecommandsuffix"
   }
 }
