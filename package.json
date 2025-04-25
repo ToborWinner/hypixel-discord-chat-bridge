@@ -3,6 +3,16 @@
   "version": "3.1.16.3",
   "description": "A Hypixel guild chat and Discord chat bridge",
   "main": "index.js",
+  "bin": {
+    "hypixel-discord-chat-bridge": "index.js"
+  },
+  "files": [
+    "API",
+    "config.example.json",
+    "index.js",
+    "messages.json",
+    "src"
+  ],
   "scripts": {
     "start": "node index.js",
     "test": "jest --detectOpenHandles --forceExit",
