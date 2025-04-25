@@ -1,7 +1,7 @@
 const hypixelRebornAPI = require("../../contracts/API/HypixelRebornAPI.js");
 const { replaceVariables } = require("../../contracts/helperFunctions.js");
 const { SuccessEmbed } = require("../../contracts/embedHandler.js");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 
 module.exports = {
   name: "update-channels",

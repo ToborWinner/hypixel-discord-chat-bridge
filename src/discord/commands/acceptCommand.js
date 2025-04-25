@@ -1,4 +1,4 @@
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 
 module.exports = {
   name: `accept-${config.accept.suffix}`,

@@ -1,5 +1,5 @@
 const { splitMessage, delay, generateID } = require("./helperFunctions.js");
-const config = require("../../config.json");
+const config = require("../Configuration.js");
 
 class minecraftCommand {
   /** @param {import("minecraft-protocol").Client} minecraft */

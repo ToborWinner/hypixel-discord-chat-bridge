@@ -1,7 +1,7 @@
 const HypixelDiscordChatBridgeError = require("../../contracts/errorHandler.js");
 const { Embed } = require("../../contracts/embedHandler.js");
 const { getCommands } = require("./infoCommand.js");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 const fs = require("fs");
 
 module.exports = {

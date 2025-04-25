@@ -5,7 +5,7 @@ const messageToImage = require("../contracts/messageToImage.js");
 const MessageHandler = require("./handlers/MessageHandler.js");
 const StateHandler = require("./handlers/StateHandler.js");
 const CommandHandler = require("./CommandHandler.js");
-const config = require("../../config.json");
+const config = require("../Configuration.js");
 const fs = require("fs");
 const { ErrorEmbed } = require("../contracts/embedHandler.js");
 

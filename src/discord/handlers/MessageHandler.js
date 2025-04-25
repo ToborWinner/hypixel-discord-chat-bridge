@@ -1,6 +1,6 @@
 const { uploadImage } = require("../../contracts/API/imgurAPI.js");
 const { demojify } = require("discord-emoji-converter");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 const emoji = require("node-emoji");
 
 class MessageHandler {

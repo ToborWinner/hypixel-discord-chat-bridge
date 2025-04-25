@@ -7,7 +7,7 @@ const { getUUID } = require("../../contracts/API/mowojangAPI.js");
 const eventHandler = require("../../contracts/EventHandler.js");
 const { isUuid } = require("../../../API/utils/uuid.js");
 const messages = require("../../../messages.json");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 const { readFileSync } = require("fs");
 const updateCommand = require("../../discord/commands/updateCommand.js");
 

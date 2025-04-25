@@ -2,7 +2,7 @@ const Logger = require("./Logger.js");
 const fs = require("fs");
 
 const exampleConfig = JSON.parse(fs.readFileSync("config.example.json"));
-const config = JSON.parse(fs.readFileSync("config.json"));
+const config = JSON.parse(fs.readFileSync(process.env.CONFIG_FILE_PATH || "config.json"));
 
 function checkConfig(object, exampleObject) {
   for (const [key, value] of Object.entries(exampleObject)) {
@@ -32,4 +32,4 @@ for (const [key, value] of Object.entries(exampleConfig)) {
   }
 }
 
-fs.writeFileSync("config.json", JSON.stringify(config, null, 2));
+module.exports = config;

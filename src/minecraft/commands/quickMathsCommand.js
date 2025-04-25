@@ -1,6 +1,6 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { delay } = require("../../contracts/helperFunctions.js");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 
 /**
  * Returns the answer

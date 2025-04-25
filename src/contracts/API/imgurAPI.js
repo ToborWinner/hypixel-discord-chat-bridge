@@ -1,4 +1,4 @@
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 // const { ImgurClient } = require("imgur");
 
 // const imgurClient = new ImgurClient({

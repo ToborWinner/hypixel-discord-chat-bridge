@@ -1,7 +1,7 @@
 const HypixelDiscordChatBridgeError = require("../../contracts/errorHandler.js");
 const { replaceVariables } = require("../../contracts/helperFunctions.js");
 const { Embed } = require("../../contracts/embedHandler.js");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 const fs = require("fs");
 
 function formatOptions(name, required) {

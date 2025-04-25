@@ -5,7 +5,6 @@ const webManager = require("./web/WebsiteManager.js");
 
 class Application {
   constructor() {
-    require("./Configuration.js");
     require("./Updater.js");
     require("./Logger.js");
     if (!existsSync("./data/")) mkdirSync("./data/", { recursive: true });

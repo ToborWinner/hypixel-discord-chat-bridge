@@ -4,7 +4,7 @@ const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js
 const { getUUID } = require("../../contracts/API/mowojangAPI.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const getWeight = require("../../../API/stats/weight.js");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 
 class MemberStatusCommand extends minecraftCommand {
   constructor(minecraft) {

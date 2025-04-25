@@ -1,5 +1,5 @@
 /* eslint-disable no-throw-literal */
-const config = require("../../config.json");
+const config = require("../../src/Configuration.js");
 // @ts-ignore
 const { get } = require("axios");
 

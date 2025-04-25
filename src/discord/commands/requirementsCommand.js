@@ -1,7 +1,7 @@
 const { formatUsername, formatNumber } = require("../../contracts/helperFunctions.js");
 const getWeight = require("../../../API/stats/weight.js");
 const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 
 module.exports = {
   name: "requirements",

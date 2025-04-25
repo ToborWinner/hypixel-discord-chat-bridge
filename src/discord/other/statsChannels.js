@@ -1,5 +1,5 @@
 const updateChannels = require("../commands/updateChannels.js");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 const cron = require("node-cron");
 
 if (config.statsChannels.enabled) {

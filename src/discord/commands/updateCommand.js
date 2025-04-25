@@ -12,7 +12,7 @@ const { getEssence } = require("../../../API/stats/essence.js");
 const { getSlayer } = require("../../../API/stats/slayer.js");
 const { getSkills } = require("../../../API/stats/skills.js");
 const { getJacob } = require("../../../API/stats/jacob.js");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 const fs = require("fs");
 const { getUsername } = require("../../contracts/API/mowojangAPI.js");
 

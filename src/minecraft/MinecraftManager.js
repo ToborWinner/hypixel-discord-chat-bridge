@@ -4,7 +4,7 @@ const StateHandler = require("./handlers/StateHandler.js");
 const ErrorHandler = require("./handlers/ErrorHandler.js");
 const ChatHandler = require("./handlers/ChatHandler.js");
 const CommandHandler = require("./CommandHandler.js");
-const config = require("../../config.json");
+const config = require("../Configuration.js");
 const mineflayer = require("mineflayer");
 const Filter = require("bad-words");
 

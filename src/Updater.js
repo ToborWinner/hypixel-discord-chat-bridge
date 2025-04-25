@@ -1,5 +1,5 @@
 const { exec } = require("child_process");
-const config = require("../config.json");
+const config = require("./Configuration.js");
 const Logger = require("./Logger.js");
 const cron = require("node-cron");
 

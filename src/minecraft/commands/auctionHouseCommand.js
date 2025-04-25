@@ -4,7 +4,7 @@ const { uploadImage } = require("../../contracts/API/imgurAPI.js");
 const { getUUID } = require("../../contracts/API/mowojangAPI.js");
 const { renderLore } = require("../../contracts/renderItem.js");
 const { getRank } = require("../../../API/stats/rank.js");
-const config = require("../../../config.json");
+const config = require("../../Configuration.js");
 // @ts-ignore
 const { get } = require("axios");
 

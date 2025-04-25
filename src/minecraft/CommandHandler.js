@@ -1,5 +1,5 @@
 const { Collection } = require("discord.js");
-const config = require("../../config.json");
+const config = require("../Configuration.js");
 const axios = require("axios");
 const fs = require("fs");
 
