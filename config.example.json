@@ -133,5 +133,13 @@
   "memberStatus": {
     "name": "command-name",
     "aliases": ["some-command-alias"]
+  },
+  "requirements": {
+    "allowedRoles": ["SOME_ROLE_ID"],
+    "highLevel": 200,
+    "highWeight": 5000,
+    "lowLevel": 100,
+    "highName": "SomeGuild",
+    "lowName": "SomeOtherGuild"
   }
 }

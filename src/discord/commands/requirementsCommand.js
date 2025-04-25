@@ -1,133 +1,111 @@
+const { formatUsername, formatNumber } = require("../../contracts/helperFunctions.js");
+const getWeight = require("../../../API/stats/weight.js");
 const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
-const HypixelDiscordChatBridgeError = require("../../contracts/errorHandler.js");
-const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { getUUID } = require("../../contracts/API/mowojangAPI.js");
-const { Embed } = require("../../contracts/embedHandler.js");
 const config = require("../../../config.json");
 
-async function checkRequirements(uuid) {
-  const [player, profile] = await Promise.all([hypixel.getPlayer(uuid), getLatestProfile(uuid)]);
-  let meetRequirements = false;
-
-  const skyblockLevel = (profile.profile?.leveling?.experience || 0) / 100 ?? 0;
-
-  const bwLevel = player.stats.bedwars.level;
-  const bwFKDR = player.stats.bedwars.finalKDRatio;
-
-  const swLevel = player.stats.skywars.level / 5;
-  const swKDR = player.stats.skywars.KDRatio;
-
-  const duelsWins = player.stats.duels.wins;
-  const dWLR = player.stats.duels.WLRatio;
-
-  if (skyblockLevel >= config.minecraft.guildRequirements.requirements.skyblockLevel && config.minecraft.guildRequirements.requirements.skyblockLevel > 0) {
-    meetRequirements = true;
-  }
-
-  if (bwLevel >= config.minecraft.guildRequirements.requirements.bedwarsStars && config.minecraft.guildRequirements.requirements.bedwarsStars > 0) {
-    meetRequirements = true;
-  }
-  if (bwFKDR >= config.minecraft.guildRequirements.requirements.bedwarsFKDR && config.minecraft.guildRequirements.requirements.bedwarsFKDR > 0) {
-    meetRequirements = true;
-  }
-
-  if (swLevel >= config.minecraft.guildRequirements.requirements.skywarsStars && config.minecraft.guildRequirements.requirements.skywarsStars > 0) {
-    meetRequirements = true;
-  }
-
-  if (swKDR >= config.minecraft.guildRequirements.requirements.skywarsKDR && config.minecraft.guildRequirements.requirements.skywarsKDR > 0) {
-    meetRequirements = true;
-  }
-
-  if (duelsWins >= config.minecraft.guildRequirements.requirements.duelsWins && config.minecraft.guildRequirements.requirements.duelsWins > 0) {
-    meetRequirements = true;
-  }
-
-  if (dWLR >= config.minecraft.guildRequirements.requirements.duelsWLR && config.minecraft.guildRequirements.requirements.duelsWLR > 0) {
-    meetRequirements = true;
-  }
-
-  return {
-    meetRequirements,
-    level: player.level,
-    nickname: player.nickname,
-    skyblockLevel: skyblockLevel.toLocaleString(),
-    bwLevel: bwLevel.toLocaleString(),
-    bwFKDR: bwFKDR.toLocaleString(),
-    swLevel: swLevel.toLocaleString(),
-    swKDR: swKDR.toLocaleString(),
-    duelsWins: duelsWins.toLocaleString(),
-    dWLR: dWLR.toLocaleString()
-  };
-}
-
-function generateEmbed(data) {
-  return new Embed()
-    .setColor(data.meetRequirements ? 2067276 : 15548997)
-    .setTitle(`${data.nickname} **${data.meetRequirements ? "has" : "hasn't"}** got the requirements to join the Guild!`)
-    .addFields(
-      {
-        name: "Bedwars Level",
-        value: `${data.bwLevel}/${config.minecraft.guildRequirements.requirements.bedwarsStars.toLocaleString()}`,
-        inline: true
-      },
-      {
-        name: "Skywars Level",
-        value: `${data.swLevel}/${config.minecraft.guildRequirements.requirements.skywarsStars.toLocaleString()}`,
-        inline: true
-      },
-      {
-        name: "Duels Wins",
-        value: `${data.duelsWins}/${config.minecraft.guildRequirements.requirements.duelsWins.toLocaleString()}`,
-        inline: true
-      },
-      {
-        name: "Bedwars FKDR",
-        value: `${data.bwFKDR}/${config.minecraft.guildRequirements.requirements.bedwarsFKDR.toLocaleString()}`,
-        inline: true
-      },
-      {
-        name: "Skywars KDR",
-        value: `${data.swKDR}/${config.minecraft.guildRequirements.requirements.skywarsKDR.toLocaleString()}`,
-        inline: true
-      },
-      {
-        name: "Duels WLR",
-        value: `${data.dWLR}/${config.minecraft.guildRequirements.requirements.duelsWLR.toLocaleString()}`,
-        inline: true
-      },
-      {
-        name: "Skyblock Level",
-        value: `${data.skyblockLevel}/${config.minecraft.guildRequirements.requirements.skyblockLevel.toLocaleString()}`,
-        inline: true
-      }
-    )
-    .setThumbnail(`https://www.mc-heads.net/avatar/${data.nickname}`)
-    .setFooter({
-      text: `by @duckysolucky | /help [command] for more information`,
-      iconURL: "https://imgur.com/tgwQJTX.png"
-    });
-}
-
 module.exports = {
-  checkRequirements,
-  generateEmbed,
   name: "requirements",
-  description: "Checks a user's requirements to join the guild.",
+  description: "Checks if the user meets the requirements to join the guild.",
   options: [
     {
-      name: "username",
-      description: "minecraft username",
+      name: "name",
+      description: "Minecraft Username",
       type: 3,
-      required: false
+      required: true
     }
   ],
 
   execute: async (interaction) => {
-    const name = interaction.options.getString("username") || interaction?.member?.nickname || null;
-    if (name === null) throw new HypixelDiscordChatBridgeError("Please input a username");
-    const playerInfo = await checkRequirements(await getUUID(name));
-    const embed = generateEmbed(playerInfo);
-    await interaction.followUp({ embeds: [embed] });
+    try {
+      let passed = false;
+      for (const role of config.requirements.allowedRoles) {
+        if (interaction.member.roles.cache.some((a) => a.id == role)) {
+          passed = true;
+          break;
+        }
+      }
+      if (!passed) {
+        await interaction.followUp({
+          embeds: [
+            {
+              title: "You don't have the required permission to run this command",
+              color: 0xff0000
+            }
+          ]
+        });
+        return;
+      }
+
+      let username = interaction.options.getString("name");
+      let data;
+      try {
+        data = await getLatestProfile(username);
+      } catch (e) {
+        if (e.toString() == "Invalid username.") {
+          await interaction.followUp({
+            embeds: [
+              {
+                title: `Player with username "${username}" not found.`,
+                color: 0xff0000
+              }
+            ]
+          });
+        } else {
+          await interaction.followUp({
+            embeds: [
+              {
+                title: `Unfortunately there was an error, please contact ToborWinner.`,
+                color: 0xff0000
+              }
+            ]
+          });
+        }
+        return;
+      }
+
+      username = formatUsername(username, data.profileData?.game_mode);
+
+      const experience = data.profile.leveling?.experience ?? 0;
+      const level = experience / 100;
+
+      const profile = getWeight(data.profile, data.uuid);
+      const senitherW = profile.senither.total;
+
+      const meetsLevelHigh = level >= config.requirements.highLevel;
+      const meetsWeightHigh = senitherW >= config.requirements.highWeight;
+      const meetsOneHigh = meetsLevelHigh || meetsWeightHigh;
+
+      const meetsLow = level >= config.requirements.lowLevel;
+
+      const embedHigh = {
+        title: `${config.requirements.nameHigh} - Requirements for ${username}`,
+        description: `${meetsOneHigh ? ":white_check_mark: Requirements met." : ":x: Requirements not met."}\n\n**Level:** ${meetsLevelHigh ? ":white_check_mark:" : ":x:"} \`${level}\`\n**Weight:** ${meetsWeightHigh ? ":white_check_mark:" : ":x:"} \`${formatNumber(senitherW)}\``,
+        color: meetsOneHigh ? 0x00ff00 : 0xff0000
+      };
+
+      const embedLow = {
+        title: `${config.requirements.nameLow} - Requirements for ${username}`,
+        description: `${meetsLow ? ":white_check_mark: Requirements met." : ":x: Requirements not met."}\n\n**Level:** ${meetsLow ? ":white_check_mark:" : ":x:"} \`${level}\``,
+        color: meetsLow ? 0x00ff00 : 0xff0000
+      };
+
+      await interaction.followUp({
+        embeds: [embedLow, embedHigh]
+      });
+    } catch (e) {
+      console.log(e);
+      try {
+        await interaction.followUp({
+          embeds: [
+            {
+              title: "Unfortunately there was an error. Please contact ToborWinner.",
+              color: 0xff0000
+            }
+          ]
+        });
+      } catch (e2) {
+        console.log(e2);
+      }
+    }
   }
 };
