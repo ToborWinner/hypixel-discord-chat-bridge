@@ -129,5 +129,9 @@
   "accept": {
     "allowedRoles": ["SOME_ROLE_ID"],
     "suffix": "somecommandsuffix"
+  },
+  "memberStatus": {
+    "name": "command-name",
+    "aliases": ["some-command-alias"]
   }
 }
