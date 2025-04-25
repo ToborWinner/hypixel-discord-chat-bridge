@@ -87,7 +87,7 @@ class DiscordManager extends CommunicationBridge {
       return;
     }
 
-    const mode = chat === "debugChannel" ? "minecraft" : config.discord.other.messageMode.toLowerCase();
+    const mode = chat === "debugChannel" ? "text" : config.discord.other.messageMode.toLowerCase();
     message = chat === "debugChannel" ? fullMessage : message;
     if (message !== undefined && chat !== "debugChannel") {
       console.broadcast(`${username} [${guildRank.replace(/§[0-9a-fk-or]/g, "").replace(/^\[|\]$/g, "")}]: ${message}`, `Discord`);
@@ -129,6 +129,12 @@ class DiscordManager extends CommunicationBridge {
           channel.send(links);
         }
 
+        break;
+
+      case "text":
+        await channel.send({
+          content: message
+        });
         break;
 
       case "webhook":
