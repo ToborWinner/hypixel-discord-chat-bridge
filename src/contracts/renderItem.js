@@ -1,15 +1,18 @@
 // Credits https://github.com/Altpapier/hypixel-discord-guild-bridge/blob/master/helper/loreRenderer.js
+
+const path = require("path");
+
 const Canvas = require("canvas");
-Canvas.registerFont("src/contracts/Fonts/2_Minecraft-Italic.otf", {
+Canvas.registerFont(path.join(__dirname, "Fonts/2_Minecraft-Italic.otf"), {
   family: "MinecraftItalic"
 });
-Canvas.registerFont("src/contracts/Fonts/MinecraftRegular-Bmg3.ttf", {
+Canvas.registerFont(path.join(__dirname, "Fonts/MinecraftRegular-Bmg3.ttf"), {
   family: "Minecraft"
 });
-Canvas.registerFont("src/contracts/Fonts/minecraft-bold.otf", {
+Canvas.registerFont(path.join(__dirname, "Fonts/minecraft-bold.otf"), {
   family: "MinecraftBold"
 });
-Canvas.registerFont("src/contracts/Fonts/unifont.ttf", {
+Canvas.registerFont(path.join(__dirname, "Fonts/unifont.ttf"), {
   family: "MinecraftUnicode"
 });
 
