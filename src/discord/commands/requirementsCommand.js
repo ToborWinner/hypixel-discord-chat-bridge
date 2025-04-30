@@ -78,13 +78,13 @@ module.exports = {
       const meetsLow = level >= config.requirements.lowLevel;
 
       const embedHigh = {
-        title: `${config.requirements.nameHigh} - Requirements for ${username}`,
+        title: `${config.requirements.highName} - Requirements for ${username}`,
         description: `${meetsOneHigh ? ":white_check_mark: Requirements met." : ":x: Requirements not met."}\n\n**Level:** ${meetsLevelHigh ? ":white_check_mark:" : ":x:"} \`${level}\`\n**Weight:** ${meetsWeightHigh ? ":white_check_mark:" : ":x:"} \`${formatNumber(senitherW)}\``,
         color: meetsOneHigh ? 0x00ff00 : 0xff0000
       };
 
       const embedLow = {
-        title: `${config.requirements.nameLow} - Requirements for ${username}`,
+        title: `${config.requirements.lowName} - Requirements for ${username}`,
         description: `${meetsLow ? ":white_check_mark: Requirements met." : ":x: Requirements not met."}\n\n**Level:** ${meetsLow ? ":white_check_mark:" : ":x:"} \`${level}\``,
         color: meetsLow ? 0x00ff00 : 0xff0000
       };
