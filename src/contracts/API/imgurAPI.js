@@ -19,11 +19,14 @@ async function uploadImage(image) {
   // return response;
 
   try {
-    /** @type {import('discord.js').Client} */
-    // @ts-ignore
-    await client.channels.cache.get(config.discord.channels.guildChatChannel).send({
-      files: [image]
-    });
+    // ABSOLUTELY NOT, why in the world is this here?? Fetching any link a user sends???
+    // Removed the code here for safety, but I removed the call to this function as well.
+ 
+    // /** @type {import('discord.js').Client} */
+    // // @ts-ignore
+    // await client.channels.cache.get(config.discord.channels.guildChatChannel).send({
+    //   files: [image]
+    // });
 
     console.log("Image uploaded to Discord channel.");
   } catch (error) {
