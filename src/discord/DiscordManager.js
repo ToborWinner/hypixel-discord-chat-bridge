@@ -107,28 +107,31 @@ class DiscordManager extends CommunicationBridge {
 
     switch (mode) {
       case "bot":
+        // await channel.send({
+        //   embeds: [
+        //     {
+        //       description: message,
+        //       color: this.hexToDec(color),
+        //       timestamp: new Date(),
+        //       footer: {
+        //         text: guildRank
+        //       },
+        //       author: {
+        //         name: username,
+        //         icon_url: `https://www.mc-heads.net/avatar/${username}`
+        //       }
+        //     }
+        //   ]
+        // });
         await channel.send({
-          embeds: [
-            {
-              description: message,
-              color: this.hexToDec(color),
-              timestamp: new Date(),
-              footer: {
-                text: guildRank
-              },
-              author: {
-                name: username,
-                icon_url: `https://www.mc-heads.net/avatar/${username}`
-              }
-            }
-          ]
-        });
+          message: `${username} [${guildRank}]: ${message}`
+        })
 
-        if (message.includes("https://")) {
-          const links = message.match(/https?:\/\/[^\s]+/g).join("\n");
-
-          channel.send(links);
-        }
+        // if (message.includes("https://")) {
+        //   const links = message.match(/https?:\/\/[^\s]+/g).join("\n");
+        //
+        //   channel.send(links);
+        // }
 
         break;
 
