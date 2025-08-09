@@ -124,7 +124,7 @@ class DiscordManager extends CommunicationBridge {
         //   ]
         // });
         await channel.send({
-          message: `${username} [${guildRank}]: ${message}`
+          content: `${username} [${guildRank}]: ${message}`
         })
 
         // if (message.includes("https://")) {
